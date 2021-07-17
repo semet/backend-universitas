@@ -8,6 +8,12 @@ Route::get("/fakultas/{id}", "FakultasController@show");
 Route::post("/fakultas/edit", "FakultasController@update");
 Route::post("/fakultas/delete", "FakultasController@destroy");
 
+Route::get("/tahun", "TahunController@index");
+Route::post("/tahun", "TahunController@store");
+Route::get("/tahun/toggle/{id}", "TahunController@toggleActive");
+Route::get("/tahun/{id}", "TahunController@show");
+Route::post("/tahun/edit", "TahunController@update");
+Route::post("/tahun/delete", "TahunController@destroy");
 
 Route::get("/dekan", "DekanController@index");
 Route::post("/dekan", "DekanController@store");
