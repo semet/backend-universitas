@@ -13,7 +13,7 @@ class SemesterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class SemesterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tahunId' => 'required',
+            'name' => 'required',
+            'startDate' => 'required',
+            'endDate' => 'required'
         ];
     }
 }

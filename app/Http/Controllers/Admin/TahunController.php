@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TahunRequest;
 use App\Http\Resources\TahunResource;
+use Exception;
 use PHPUnit\Framework\Constraint\JsonMatches;
 
 class TahunController extends Controller
@@ -18,7 +19,7 @@ class TahunController extends Controller
      */
     public function index()
     {
-        return TahunResource::collection(Tahun::all());
+        return TahunResource::collection(Tahun::orderBy('start_date')->get());
     }
 
     /**
@@ -39,10 +40,13 @@ class TahunController extends Controller
      */
     public function store(TahunRequest $request)
     {
+        $active = $this->checkActiveYear() ? false : true;
+
         $tahun = Tahun::create([
             'name' => $request->name,
             'start_date' => $request->startDate,
             'end_date' => $request->endDate,
+            'active' => $active,
             'description' => $request->description
         ]);
 
@@ -55,15 +59,26 @@ class TahunController extends Controller
     }
     /**
      * @Author: Hamdani Ash-Sidiq
+     * @Date: 2021-07-18 04:28:56
+     * @Desc: check whether ther is active year before
+     * saving the new year 'active' status
+     */
+    public function checkActiveYear()
+    {
+        return Tahun::where('active', 1)->first();
+    }
+    /**
+     * @Author: Hamdani Ash-Sidiq
      * @Date: 2021-07-17 07:57:19
      * @Desc: Toggle active tahun
      */
-    public function toggleActive($id)
+    public function toggleActive(Request $request)
     {
-        $this->deactivate()->activate($id);
+        $this->deactivate()->activate($request->tahunId);
         return response()->json([
             'msg' => 'Berhasil merubah status Tahun'
         ], 200);
+
     }
     /**
      * @Author: Hamdani Ash-Sidiq
@@ -136,4 +151,6 @@ class TahunController extends Controller
     {
         //
     }
+
+
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SemesterRequest;
+use App\Http\Resources\SemesterResource;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 
 class SemesterController extends Controller
@@ -14,7 +17,7 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        //
+        return SemesterResource::collection(Semester::all());
     }
 
     /**
@@ -33,11 +36,33 @@ class SemesterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SemesterRequest $request)
+    {
+        $semester = new Semester();
+        $semester->tahun_id = $request->tahunId;
+        $semester->name = $request->name;
+        $semester->start_date = $request->startDate;
+        $semester->end_date = $request->endDate;
+        $semester->active = $request->active;
+        $semester->description = $request->description;
+
+        if($semester->save())
+        {
+            return response()->json([
+                'msg' => 'Berhasil menyimpan data semester'
+            ]);
+        }
+
+    }
+    /**
+     * @Author: Hamdani Ash-Sidiq
+     * @Date: 2021-07-18 14:40:39
+     * @Desc: Toggle active semester
+     */
+    public function toggleActive(Request $request)
     {
         //
     }
-
     /**
      * Display the specified resource.
      *

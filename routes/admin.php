@@ -10,10 +10,17 @@ Route::post("/fakultas/delete", "FakultasController@destroy");
 
 Route::get("/tahun", "TahunController@index");
 Route::post("/tahun", "TahunController@store");
-Route::get("/tahun/toggle/{id}", "TahunController@toggleActive");
+Route::post("/tahun/toggle", "TahunController@toggleActive");
 Route::get("/tahun/{id}", "TahunController@show");
 Route::post("/tahun/edit", "TahunController@update");
 Route::post("/tahun/delete", "TahunController@destroy");
+
+Route::get("/semester", "SemesterController@index");
+Route::post("/semester", "SemesterController@store");
+Route::post("/semester/toggle", "SemesterController@toggleActive");
+Route::get("/semester/{id}", "SemesterController@show");
+Route::post("/semester/edit", "SemesterController@update");
+Route::post("/semester/delete", "SemesterController@destroy");
 
 Route::get("/dekan", "DekanController@index");
 Route::post("/dekan", "DekanController@store");

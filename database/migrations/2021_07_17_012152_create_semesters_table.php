@@ -17,7 +17,9 @@ class CreateSemestersTable extends Migration
             $table->id();
             $table->foreignId('tahun_id')->unsigned();
             $table->string('name');
-            $table->string('description');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('description')->nullable();
             $table->boolean('active')->default(false);
             $table->timestamps();
         });

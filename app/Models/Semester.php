@@ -11,7 +11,7 @@ class Semester extends Model
 
     protected $fillable = ['tahun_id', 'name', 'active', 'description'];
 
-    public function fakultas()
+    public function tahun()
     {
         return $this->belongsTo(Tahun::class);
     }
